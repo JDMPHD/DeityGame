@@ -242,6 +242,9 @@ export function validateTraitSelection(
   const errors: string[] = [];
   const warnings: string[] = [];
 
+  // Optimization: Use Set for O(1) lookups
+  const selectedTraitIdSet = new Set(selectedTraitIds);
+
   const selectedTraits = selectedTraitIds
     .map((id) => traitDefinitions[id])
     .filter((t): t is TraitDefinition => t !== undefined);
@@ -250,7 +253,7 @@ export function validateTraitSelection(
     // Check requirements
     if (trait.requires) {
       for (const requiredId of trait.requires) {
-        if (!selectedTraitIds.includes(requiredId)) {
+        if (!selectedTraitIdSet.has(requiredId)) {
           const requiredTrait = traitDefinitions[requiredId];
           errors.push(
             `"${trait.name}" requires "${requiredTrait?.name ?? requiredId}"`
@@ -262,7 +265,7 @@ export function validateTraitSelection(
     // Check exclusions
     if (trait.excludes) {
       for (const excludedId of trait.excludes) {
-        if (selectedTraitIds.includes(excludedId)) {
+        if (selectedTraitIdSet.has(excludedId)) {
           const excludedTrait = traitDefinitions[excludedId];
           errors.push(
             `"${trait.name}" cannot be combined with "${excludedTrait?.name ?? excludedId}"`
