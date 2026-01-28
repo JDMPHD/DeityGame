@@ -241,6 +241,7 @@ export function validateTraitSelection(
 ): ValidationResult {
   const errors: string[] = [];
   const warnings: string[] = [];
+  const selectedTraitSet = new Set(selectedTraitIds);
 
   const selectedTraits = selectedTraitIds
     .map((id) => traitDefinitions[id])
@@ -250,7 +251,7 @@ export function validateTraitSelection(
     // Check requirements
     if (trait.requires) {
       for (const requiredId of trait.requires) {
-        if (!selectedTraitIds.includes(requiredId)) {
+        if (!selectedTraitSet.has(requiredId)) {
           const requiredTrait = traitDefinitions[requiredId];
           errors.push(
             `"${trait.name}" requires "${requiredTrait?.name ?? requiredId}"`
@@ -262,7 +263,7 @@ export function validateTraitSelection(
     // Check exclusions
     if (trait.excludes) {
       for (const excludedId of trait.excludes) {
-        if (selectedTraitIds.includes(excludedId)) {
+        if (selectedTraitSet.has(excludedId)) {
           const excludedTrait = traitDefinitions[excludedId];
           errors.push(
             `"${trait.name}" cannot be combined with "${excludedTrait?.name ?? excludedId}"`
