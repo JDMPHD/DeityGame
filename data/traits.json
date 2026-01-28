@@ -1,0 +1,968 @@
+{
+  "version": "0.1.0",
+  "traits": {
+    "physical": {
+      "thick_hide": {
+        "id": "thick_hide",
+        "name": "Thick Hide",
+        "description": "Tough, leathery skin provides natural protection against physical damage.",
+        "category": "physical",
+        "cost": 2,
+        "modifierEffects": {
+          "hpMultiplier": 1.2
+        },
+        "excludes": ["armored_shell", "soft_skinned"]
+      },
+      "armored_shell": {
+        "id": "armored_shell",
+        "name": "Armored Shell",
+        "description": "A heavy carapace or shell offers tremendous protection at the cost of mobility.",
+        "category": "physical",
+        "cost": 4,
+        "modifierEffects": {
+          "hpMultiplier": 1.6,
+          "speedMultiplier": 0.7
+        },
+        "excludes": ["thick_hide", "soft_skinned", "winged"]
+      },
+      "soft_skinned": {
+        "id": "soft_skinned",
+        "name": "Soft Skinned",
+        "description": "Vulnerable flesh, but allows for greater agility and sensitivity.",
+        "category": "physical",
+        "cost": -2,
+        "modifierEffects": {
+          "hpMultiplier": 0.8,
+          "speedMultiplier": 1.1
+        },
+        "excludes": ["thick_hide", "armored_shell"]
+      },
+      "razor_claws": {
+        "id": "razor_claws",
+        "name": "Razor Claws",
+        "description": "Sharp, retractable or fixed claws for rending prey and enemies.",
+        "category": "physical",
+        "cost": 3,
+        "statModifiers": {
+          "aggression": 1
+        },
+        "modifierEffects": {
+          "damageMultiplier": 1.25
+        }
+      },
+      "deadly_fangs": {
+        "id": "deadly_fangs",
+        "name": "Deadly Fangs",
+        "description": "Powerful jaws lined with sharp teeth for biting attacks.",
+        "category": "physical",
+        "cost": 3,
+        "statModifiers": {
+          "aggression": 1
+        },
+        "modifierEffects": {
+          "damageMultiplier": 1.25
+        }
+      },
+      "powerful_tail": {
+        "id": "powerful_tail",
+        "name": "Powerful Tail",
+        "description": "A muscular tail useful for balance, swimming, and combat.",
+        "category": "physical",
+        "cost": 3,
+        "modifierEffects": {
+          "damageMultiplier": 1.1,
+          "speedMultiplier": 1.05,
+          "swimSpeedMultiplier": 1.3
+        }
+      },
+      "opposable_thumbs": {
+        "id": "opposable_thumbs",
+        "name": "Opposable Thumbs",
+        "description": "Dexterous digits capable of fine manipulation. Essential for advanced tool use.",
+        "category": "physical",
+        "cost": 6,
+        "statModifiers": {
+          "naturalism": 1,
+          "logos": 2,
+          "sociology": 1
+        },
+        "modifierEffects": {
+          "craftingBonus": 1.5,
+          "toolEffectiveness": 1.5
+        },
+        "excludes": ["tentacles", "hooves"]
+      },
+      "tentacles": {
+        "id": "tentacles",
+        "name": "Tentacles",
+        "description": "Flexible appendages for grasping and manipulation. Versatile but less precise than thumbs.",
+        "category": "physical",
+        "cost": 4,
+        "statModifiers": {
+          "naturalism": 1,
+          "logos": 1
+        },
+        "modifierEffects": {
+          "craftingBonus": 1.25,
+          "toolEffectiveness": 1.2,
+          "grappleBonus": 1.3
+        },
+        "excludes": ["opposable_thumbs", "hooves"]
+      },
+      "hooves": {
+        "id": "hooves",
+        "name": "Hooves",
+        "description": "Hard, keratinous feet for running and kicking. Poor manipulation.",
+        "category": "physical",
+        "cost": -1,
+        "modifierEffects": {
+          "speedMultiplier": 1.15,
+          "damageMultiplier": 1.05,
+          "craftingBonus": 0.5,
+          "toolEffectiveness": 0.6
+        },
+        "excludes": ["opposable_thumbs", "tentacles"]
+      },
+      "natural_camouflage": {
+        "id": "natural_camouflage",
+        "name": "Natural Camouflage",
+        "description": "Skin patterns and coloration that blend with the environment. Enemies detect only when adjacent.",
+        "category": "physical",
+        "cost": 4,
+        "special": {
+          "stealthDetection": true,
+          "detectionRadius": 1
+        }
+      },
+      "pheromone_trails": {
+        "id": "pheromone_trails",
+        "name": "Pheromone Trails",
+        "description": "Chemical signaling for communication with kin. Enhances coordination.",
+        "category": "physical",
+        "cost": 2,
+        "statModifiers": {
+          "harmony": 2
+        },
+        "modifierEffects": {
+          "signalRange": 1.5
+        }
+      },
+      "winged": {
+        "id": "winged",
+        "name": "Winged",
+        "description": "Wings capable of flight. Eliminates terrain traversal costs but reduces durability.",
+        "category": "physical",
+        "cost": 6,
+        "modifierEffects": {
+          "hpMultiplier": 0.85,
+          "terrainCostMultiplier": 0
+        },
+        "special": {
+          "flightEnabled": true
+        },
+        "excludes": ["armored_shell"],
+        "sizeRequirement": ["diminutive", "small", "middling"]
+      },
+      "burrowers": {
+        "id": "burrowers",
+        "name": "Burrowers",
+        "description": "Adapted for digging through earth. Improves territory claiming and defensive capabilities.",
+        "category": "physical",
+        "cost": 3,
+        "modifierEffects": {
+          "claimRateMultiplier": 1.3,
+          "claimResistance": 1.4
+        },
+        "special": {
+          "burrowEnabled": true
+        }
+      },
+      "aquatic": {
+        "id": "aquatic",
+        "name": "Aquatic",
+        "description": "Adapted for water. Excellent swimmers but struggle on land.",
+        "category": "physical",
+        "cost": 2,
+        "modifierEffects": {
+          "swimSpeedMultiplier": 2.0,
+          "landSpeedMultiplier": 0.6
+        },
+        "special": {
+          "waterBreathing": true
+        }
+      },
+      "amphibious": {
+        "id": "amphibious",
+        "name": "Amphibious",
+        "description": "Comfortable both in water and on land, though master of neither.",
+        "category": "physical",
+        "cost": 3,
+        "modifierEffects": {
+          "swimSpeedMultiplier": 1.3,
+          "landSpeedMultiplier": 0.95
+        },
+        "special": {
+          "waterBreathing": true
+        }
+      },
+      "venomous": {
+        "id": "venomous",
+        "name": "Venomous",
+        "description": "Produces toxins that can be delivered through bite or sting. Causes damage over time.",
+        "category": "physical",
+        "cost": 4,
+        "modifierEffects": {
+          "poisonDamage": 0.3,
+          "huntingSuccess": 1.2
+        },
+        "requires": ["deadly_fangs"]
+      },
+      "regeneration": {
+        "id": "regeneration",
+        "name": "Regeneration",
+        "description": "Slowly recovers from wounds over time. Can even regrow lost limbs.",
+        "category": "physical",
+        "cost": 5,
+        "modifierEffects": {
+          "hpRegenRate": 0.02
+        }
+      },
+      "echolocation": {
+        "id": "echolocation",
+        "name": "Echolocation",
+        "description": "Uses sound to detect surroundings. Effective in darkness and caves.",
+        "category": "physical",
+        "cost": 2,
+        "modifierEffects": {
+          "visionRange": 1.2
+        },
+        "special": {
+          "darkVision": true,
+          "caveBonus": 1.3
+        }
+      },
+      "compound_eyes": {
+        "id": "compound_eyes",
+        "name": "Compound Eyes",
+        "description": "Multi-faceted eyes providing excellent peripheral vision and threat detection.",
+        "category": "physical",
+        "cost": 2,
+        "modifierEffects": {
+          "visionRange": 1.3,
+          "threatDetection": 1.4
+        }
+      },
+      "keen_senses": {
+        "id": "keen_senses",
+        "name": "Keen Senses",
+        "description": "Highly developed sight, smell, and hearing.",
+        "category": "physical",
+        "cost": 2,
+        "modifierEffects": {
+          "visionRange": 1.2,
+          "threatDetection": 1.2,
+          "trackingBonus": 1.3
+        }
+      },
+      "bioluminescence": {
+        "id": "bioluminescence",
+        "name": "Bioluminescence",
+        "description": "Produces natural light. Useful for signaling and navigation in darkness.",
+        "category": "physical",
+        "cost": 1,
+        "statModifiers": {
+          "harmony": 1
+        },
+        "special": {
+          "producesLight": true,
+          "signalRange": 1.2
+        }
+      },
+      "heat_resistant": {
+        "id": "heat_resistant",
+        "name": "Heat Resistant",
+        "description": "Thrives in hot environments. Resistant to fire and volcanic terrain.",
+        "category": "physical",
+        "cost": 2,
+        "special": {
+          "heatResistance": true,
+          "volcanicBonus": 1.4
+        },
+        "excludes": ["cold_adapted"]
+      },
+      "cold_adapted": {
+        "id": "cold_adapted",
+        "name": "Cold Adapted",
+        "description": "Thick fur or blubber for cold climates. Thrives in tundra and mountains.",
+        "category": "physical",
+        "cost": 2,
+        "special": {
+          "coldResistance": true,
+          "tundraBonus": 1.4
+        },
+        "excludes": ["heat_resistant"]
+      }
+    },
+
+    "temperament": {
+      "bloodthirsty": {
+        "id": "bloodthirsty",
+        "name": "Bloodthirsty",
+        "description": "An innate drive to hunt, fight, and kill. Actively seeks combat.",
+        "category": "temperament",
+        "cost": 0,
+        "statModifiers": {
+          "aggression": 5
+        },
+        "excludes": ["pacifist", "cautious"]
+      },
+      "aggressive": {
+        "id": "aggressive",
+        "name": "Aggressive",
+        "description": "Quick to anger and willing to fight. Attacks when threatened.",
+        "category": "temperament",
+        "cost": 0,
+        "statModifiers": {
+          "aggression": 3
+        },
+        "excludes": ["pacifist", "bloodthirsty"]
+      },
+      "pacifist": {
+        "id": "pacifist",
+        "name": "Pacifist",
+        "description": "Avoids violence whenever possible. Flees from conflict.",
+        "category": "temperament",
+        "cost": 0,
+        "statModifiers": {
+          "aggression": -5
+        },
+        "excludes": ["bloodthirsty", "aggressive"]
+      },
+      "cautious": {
+        "id": "cautious",
+        "name": "Cautious",
+        "description": "Careful and risk-averse. Fights only when confident of victory.",
+        "category": "temperament",
+        "cost": 0,
+        "statModifiers": {
+          "aggression": -2
+        },
+        "excludes": ["bloodthirsty", "reckless"]
+      },
+      "reckless": {
+        "id": "reckless",
+        "name": "Reckless",
+        "description": "Acts without considering consequences. High risk, high reward.",
+        "category": "temperament",
+        "cost": 0,
+        "statModifiers": {
+          "aggression": 2
+        },
+        "modifierEffects": {
+          "speedMultiplier": 1.1
+        },
+        "excludes": ["cautious", "methodical"]
+      },
+      "hive_minded": {
+        "id": "hive_minded",
+        "name": "Hive-Minded",
+        "description": "Extreme collectivism. The individual is nothing; the whole is everything.",
+        "category": "temperament",
+        "cost": 3,
+        "statModifiers": {
+          "harmony": 5,
+          "curiosity": -1
+        },
+        "excludes": ["fiercely_independent", "lone_wolf"]
+      },
+      "fiercely_independent": {
+        "id": "fiercely_independent",
+        "name": "Fiercely Independent",
+        "description": "Values autonomy above all. Resents authority and crowds.",
+        "category": "temperament",
+        "cost": 0,
+        "statModifiers": {
+          "harmony": -5
+        },
+        "excludes": ["hive_minded", "pack_bonded"]
+      },
+      "lone_wolf": {
+        "id": "lone_wolf",
+        "name": "Lone Wolf",
+        "description": "Prefers solitude. Works best alone.",
+        "category": "temperament",
+        "cost": 0,
+        "statModifiers": {
+          "harmony": -3
+        },
+        "modifierEffects": {
+          "soloBonus": 1.3
+        },
+        "excludes": ["hive_minded"]
+      },
+      "pack_bonded": {
+        "id": "pack_bonded",
+        "name": "Pack Bonded",
+        "description": "Forms strong social bonds. Works well in groups.",
+        "category": "temperament",
+        "cost": 1,
+        "statModifiers": {
+          "harmony": 2
+        },
+        "excludes": ["fiercely_independent"]
+      },
+      "tribal": {
+        "id": "tribal",
+        "name": "Tribal",
+        "description": "Strong in-group loyalty, suspicious of outsiders.",
+        "category": "temperament",
+        "cost": 1,
+        "statModifiers": {
+          "harmony": 1,
+          "aggression": 1
+        },
+        "modifierEffects": {
+          "allyBonus": 1.2,
+          "foreignerPenalty": 0.8
+        }
+      },
+      "impulsive": {
+        "id": "impulsive",
+        "name": "Impulsive",
+        "description": "Acts quickly without deliberation. Fast but prone to mistakes.",
+        "category": "temperament",
+        "cost": 0,
+        "modifierEffects": {
+          "speedMultiplier": 1.15,
+          "planningBonus": 0.8
+        },
+        "excludes": ["methodical"]
+      },
+      "methodical": {
+        "id": "methodical",
+        "name": "Methodical",
+        "description": "Thinks before acting. Slow but thorough and reliable.",
+        "category": "temperament",
+        "cost": 0,
+        "modifierEffects": {
+          "speedMultiplier": 0.9,
+          "planningBonus": 1.3
+        },
+        "excludes": ["impulsive", "reckless"]
+      },
+      "stoic": {
+        "id": "stoic",
+        "name": "Stoic",
+        "description": "Endures hardship without complaint. Resistant to morale damage.",
+        "category": "temperament",
+        "cost": 2,
+        "modifierEffects": {
+          "moraleResistance": 1.4,
+          "panicResistance": 1.3
+        }
+      },
+      "volatile": {
+        "id": "volatile",
+        "name": "Volatile",
+        "description": "Emotional and unpredictable. Can surge with power or collapse under pressure.",
+        "category": "temperament",
+        "cost": -1,
+        "modifierEffects": {
+          "moraleVariance": 1.5
+        }
+      }
+    },
+
+    "mental": {
+      "curious": {
+        "id": "curious",
+        "name": "Curious",
+        "description": "Driven to explore and understand. Quick learners.",
+        "category": "mental",
+        "cost": 2,
+        "statModifiers": {
+          "curiosity": 2
+        }
+      },
+      "incurious": {
+        "id": "incurious",
+        "name": "Incurious",
+        "description": "Content with the known. Resistant to new ideas.",
+        "category": "mental",
+        "cost": -2,
+        "statModifiers": {
+          "curiosity": -2
+        }
+      },
+      "devout": {
+        "id": "devout",
+        "name": "Devout",
+        "description": "Spiritually inclined. Generates faith easily and responds to divine guidance.",
+        "category": "mental",
+        "cost": 2,
+        "statModifiers": {
+          "piety": 3
+        }
+      },
+      "skeptical": {
+        "id": "skeptical",
+        "name": "Skeptical",
+        "description": "Questions everything, including the gods. Resistant to faith but prone to independent thought.",
+        "category": "mental",
+        "cost": -1,
+        "statModifiers": {
+          "piety": -3,
+          "curiosity": 1
+        }
+      },
+      "naturalistic": {
+        "id": "naturalistic",
+        "name": "Naturalistic",
+        "description": "Attuned to nature and living things. Understanding of ecosystems and biology.",
+        "category": "mental",
+        "cost": 2,
+        "statModifiers": {
+          "naturalism": 3,
+          "logos": -1
+        }
+      },
+      "calculative": {
+        "id": "calculative",
+        "name": "Calculative",
+        "description": "Mathematical and logical mind. Excels at engineering and planning.",
+        "category": "mental",
+        "cost": 2,
+        "statModifiers": {
+          "logos": 3,
+          "naturalism": -1
+        }
+      },
+      "intuitive": {
+        "id": "intuitive",
+        "name": "Intuitive",
+        "description": "Reads people and situations instinctively. Strong social intelligence.",
+        "category": "mental",
+        "cost": 2,
+        "statModifiers": {
+          "sociology": 2,
+          "logos": -1
+        }
+      },
+      "analytical": {
+        "id": "analytical",
+        "name": "Analytical",
+        "description": "Breaks down problems systematically. Pure logical reasoning.",
+        "category": "mental",
+        "cost": 2,
+        "statModifiers": {
+          "logos": 2,
+          "sociology": -1
+        }
+      },
+      "empathic": {
+        "id": "empathic",
+        "name": "Empathic",
+        "description": "Deeply feels and understands the emotions of others.",
+        "category": "mental",
+        "cost": 3,
+        "statModifiers": {
+          "sociology": 3
+        },
+        "requires": ["pack_bonded"]
+      },
+      "cunning": {
+        "id": "cunning",
+        "name": "Cunning",
+        "description": "Clever and scheming. Good at deception and manipulation.",
+        "category": "mental",
+        "cost": 2,
+        "statModifiers": {
+          "sociology": 1,
+          "logos": 1
+        },
+        "modifierEffects": {
+          "deceptionBonus": 1.3
+        }
+      },
+      "wise": {
+        "id": "wise",
+        "name": "Wise",
+        "description": "Possesses deep understanding and good judgment. Elders are especially revered.",
+        "category": "mental",
+        "cost": 3,
+        "statModifiers": {
+          "naturalism": 1,
+          "sociology": 1
+        },
+        "modifierEffects": {
+          "elderBonus": 1.4
+        }
+      },
+      "simple_minded": {
+        "id": "simple_minded",
+        "name": "Simple-Minded",
+        "description": "Limited cognitive complexity. Relies on instinct over reason.",
+        "category": "mental",
+        "cost": -3,
+        "statModifiers": {
+          "curiosity": -2,
+          "logos": -2,
+          "sociology": -1
+        }
+      }
+    },
+
+    "survival": {
+      "hardy": {
+        "id": "hardy",
+        "name": "Hardy",
+        "description": "Tough constitution. Resistant to disease and starvation.",
+        "category": "survival",
+        "cost": 2,
+        "modifierEffects": {
+          "diseaseResistance": 1.4,
+          "starvationResistance": 1.3
+        }
+      },
+      "frail": {
+        "id": "frail",
+        "name": "Frail",
+        "description": "Delicate constitution. Vulnerable to hardship.",
+        "category": "survival",
+        "cost": -2,
+        "modifierEffects": {
+          "hpMultiplier": 0.85,
+          "diseaseResistance": 0.7
+        }
+      },
+      "fertile": {
+        "id": "fertile",
+        "name": "Fertile",
+        "description": "High reproductive rate. Population grows quickly.",
+        "category": "survival",
+        "cost": 3,
+        "modifierEffects": {
+          "spawnRateMultiplier": 1.3
+        }
+      },
+      "slow_breeding": {
+        "id": "slow_breeding",
+        "name": "Slow Breeding",
+        "description": "Few offspring, but each is precious and carefully raised.",
+        "category": "survival",
+        "cost": -2,
+        "modifierEffects": {
+          "spawnRateMultiplier": 0.7
+        }
+      },
+      "migratory": {
+        "id": "migratory",
+        "name": "Migratory",
+        "description": "Instinct to move with the seasons. Fast but less attached to territory.",
+        "category": "survival",
+        "cost": 1,
+        "modifierEffects": {
+          "speedMultiplier": 1.15,
+          "territoryAttachment": 0.7
+        }
+      },
+      "territorial": {
+        "id": "territorial",
+        "name": "Territorial",
+        "description": "Fiercely defends claimed land. Strong at home, reluctant to roam.",
+        "category": "survival",
+        "cost": 1,
+        "modifierEffects": {
+          "claimRateMultiplier": 1.2,
+          "homeDefenseBonus": 1.3,
+          "roamingPenalty": 0.8
+        }
+      },
+      "nomadic": {
+        "id": "nomadic",
+        "name": "Nomadic",
+        "description": "Lives on the move. No permanent settlements but highly mobile.",
+        "category": "survival",
+        "cost": 1,
+        "modifierEffects": {
+          "speedMultiplier": 1.2,
+          "settlementBonus": 0.5,
+          "foragingBonus": 1.3
+        }
+      },
+      "sedentary": {
+        "id": "sedentary",
+        "name": "Sedentary",
+        "description": "Prefers to stay in one place. Excellent settlers and builders.",
+        "category": "survival",
+        "cost": 1,
+        "modifierEffects": {
+          "speedMultiplier": 0.9,
+          "settlementBonus": 1.4,
+          "buildingBonus": 1.2
+        }
+      },
+      "opportunistic": {
+        "id": "opportunistic",
+        "name": "Opportunistic",
+        "description": "Adapts strategy based on circumstances. Jack of all trades.",
+        "category": "survival",
+        "cost": 2,
+        "modifierEffects": {
+          "adaptability": 1.3
+        }
+      },
+      "specialized": {
+        "id": "specialized",
+        "name": "Specialized",
+        "description": "Highly adapted to specific conditions. Excels in niche but struggles elsewhere.",
+        "category": "survival",
+        "cost": 0,
+        "modifierEffects": {
+          "favoredTerrainBonus": 1.5,
+          "unfavoredTerrainPenalty": 0.7
+        }
+      }
+    }
+  },
+
+  "sizeCategories": {
+    "diminutive": {
+      "id": "diminutive",
+      "name": "Diminutive",
+      "description": "House cat sized. Tiny but numerous.",
+      "reference": "House cat",
+      "cost": 0,
+      "modifiers": {
+        "hpMultiplier": 0.3,
+        "damageMultiplier": 0.3,
+        "spawnRateMultiplier": 5.0,
+        "popCapMultiplier": 5.0,
+        "biomassPerSprite": 0.2
+      }
+    },
+    "small": {
+      "id": "small",
+      "name": "Small",
+      "description": "Dog sized. Quick and agile.",
+      "reference": "Dog",
+      "cost": 0,
+      "modifiers": {
+        "hpMultiplier": 0.5,
+        "damageMultiplier": 0.5,
+        "spawnRateMultiplier": 3.0,
+        "popCapMultiplier": 3.0,
+        "biomassPerSprite": 0.35
+      }
+    },
+    "middling": {
+      "id": "middling",
+      "name": "Middling",
+      "description": "Ape sized. The baseline for most civilizations.",
+      "reference": "Ape / Human",
+      "cost": 0,
+      "modifiers": {
+        "hpMultiplier": 1.0,
+        "damageMultiplier": 1.0,
+        "spawnRateMultiplier": 1.0,
+        "popCapMultiplier": 1.0,
+        "biomassPerSprite": 1.0
+      }
+    },
+    "huge": {
+      "id": "huge",
+      "name": "Huge",
+      "description": "Bear sized. Powerful individuals, fewer in number.",
+      "reference": "Bear",
+      "cost": 0,
+      "modifiers": {
+        "hpMultiplier": 2.0,
+        "damageMultiplier": 2.0,
+        "spawnRateMultiplier": 0.4,
+        "popCapMultiplier": 0.4,
+        "biomassPerSprite": 2.5
+      }
+    },
+    "behemoth": {
+      "id": "behemoth",
+      "name": "Behemoth",
+      "description": "Elephant sized. Legendary titans that shake the earth.",
+      "reference": "Elephant",
+      "cost": 0,
+      "modifiers": {
+        "hpMultiplier": 4.0,
+        "damageMultiplier": 3.0,
+        "spawnRateMultiplier": 0.15,
+        "popCapMultiplier": 0.15,
+        "biomassPerSprite": 6.5
+      }
+    }
+  },
+
+  "longevityTiers": {
+    "1": {
+      "id": "1",
+      "name": "Mayfly",
+      "description": "Lives fast, dies young. Brief candle in the wind.",
+      "ticksPerPhase": 50,
+      "maxPhases": 3,
+      "cost": -3
+    },
+    "2": {
+      "id": "2",
+      "name": "Brief Candle",
+      "description": "Short-lived but not ephemeral. Some may reach elderhood.",
+      "ticksPerPhase": 100,
+      "maxPhases": 4,
+      "cost": 0
+    },
+    "3": {
+      "id": "3",
+      "name": "Mortal Span",
+      "description": "A balanced lifespan. Time enough for mastery.",
+      "ticksPerPhase": 200,
+      "maxPhases": 5,
+      "cost": 3
+    },
+    "4": {
+      "id": "4",
+      "name": "Long-Lived",
+      "description": "Extended years. Elders are common and influential.",
+      "ticksPerPhase": 400,
+      "maxPhases": 5,
+      "cost": 6
+    },
+    "5": {
+      "id": "5",
+      "name": "Ancient Ones",
+      "description": "Near-immortal by mortal standards. A society of sages.",
+      "ticksPerPhase": 1000,
+      "maxPhases": 5,
+      "cost": 10
+    }
+  },
+
+  "dietTypes": {
+    "omnivore": {
+      "id": "omnivore",
+      "name": "Omnivore",
+      "description": "Eats both plants and meat. Balanced and adaptable.",
+      "cost": 0,
+      "mechanics": {
+        "biomassFromTerritory": 1.0,
+        "biomassFromKills": 1.0,
+        "huntingRequired": false
+      }
+    },
+    "predator": {
+      "id": "predator",
+      "name": "Predator",
+      "description": "Must hunt to survive. Swift and deadly, but dependent on prey.",
+      "cost": 0,
+      "mechanics": {
+        "biomassFromTerritory": 0.5,
+        "biomassFromKills": 2.0,
+        "huntingRequired": true,
+        "meatDecayRate": 0.01,
+        "starvationThreshold": 0
+      },
+      "modifiers": {
+        "speedMultiplier": 1.15,
+        "damageMultiplier": 1.15,
+        "homeAttachment": 0.6,
+        "roamingBonus": 1.3
+      },
+      "statModifiers": {
+        "aggression": 2
+      }
+    },
+    "herbivore": {
+      "id": "herbivore",
+      "name": "Herbivore",
+      "description": "Plant eaters. Peaceful grazers with natural harmony.",
+      "cost": 0,
+      "mechanics": {
+        "biomassFromTerritory": 1.3,
+        "biomassFromKills": 0,
+        "huntingRequired": false
+      },
+      "statModifiers": {
+        "harmony": 2,
+        "aggression": -1
+      }
+    }
+  },
+
+  "favoredTerrains": {
+    "plains": {
+      "id": "plains",
+      "name": "Plains",
+      "description": "Open grasslands. Easy living, wide horizons.",
+      "desirability": "high",
+      "bonusStrength": 1.1
+    },
+    "forest": {
+      "id": "forest",
+      "name": "Forest",
+      "description": "Wooded lands. Shelter and resources aplenty.",
+      "desirability": "high",
+      "bonusStrength": 1.1
+    },
+    "jungle": {
+      "id": "jungle",
+      "name": "Jungle",
+      "description": "Dense tropical growth. Rich but dangerous.",
+      "desirability": "medium",
+      "bonusStrength": 1.2
+    },
+    "mountains": {
+      "id": "mountains",
+      "name": "Mountains",
+      "description": "High peaks and valleys. Defensible but sparse.",
+      "desirability": "medium",
+      "bonusStrength": 1.2
+    },
+    "desert": {
+      "id": "desert",
+      "name": "Desert",
+      "description": "Arid wastelands. Only the hardy survive.",
+      "desirability": "low",
+      "bonusStrength": 1.35
+    },
+    "tundra": {
+      "id": "tundra",
+      "name": "Tundra",
+      "description": "Frozen wastes. Endless cold and scarcity.",
+      "desirability": "low",
+      "bonusStrength": 1.35
+    },
+    "swamp": {
+      "id": "swamp",
+      "name": "Swamp",
+      "description": "Boggy wetlands. Disease and difficult terrain.",
+      "desirability": "low",
+      "bonusStrength": 1.35
+    },
+    "volcanic": {
+      "id": "volcanic",
+      "name": "Volcanic",
+      "description": "Land of fire and ash. Extremely dangerous.",
+      "desirability": "very_low",
+      "bonusStrength": 1.5
+    },
+    "coastal": {
+      "id": "coastal",
+      "name": "Coastal",
+      "description": "Where land meets sea. Trade and fishing.",
+      "desirability": "medium",
+      "bonusStrength": 1.2
+    },
+    "underground": {
+      "id": "underground",
+      "name": "Underground",
+      "description": "Caverns and tunnels. Hidden and resource-rich.",
+      "desirability": "low",
+      "bonusStrength": 1.35
+    }
+  }
+}
