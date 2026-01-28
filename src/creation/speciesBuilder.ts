@@ -235,6 +235,7 @@ export function aggregateSpecialAbilities(traits: TraitDefinition[]): SpecialAbi
  * Validate trait selection against requirements and exclusions.
  */
 export function validateTraitSelection(
+  selectedTraits: TraitDefinition[],
   selectedTraitIds: string[],
   size: SizeCategory | null,
   traitDefinitions: Record<string, TraitDefinition>
@@ -242,10 +243,6 @@ export function validateTraitSelection(
   const errors: string[] = [];
   const warnings: string[] = [];
   const selectedTraitSet = new Set(selectedTraitIds);
-
-  const selectedTraits = selectedTraitIds
-    .map((id) => traitDefinitions[id])
-    .filter((t): t is TraitDefinition => t !== undefined);
 
   for (const trait of selectedTraits) {
     // Check requirements
@@ -423,6 +420,7 @@ export function updateCreationState(
 
   // Validate trait selection
   const traitValidation = validateTraitSelection(
+    traits,
     state.selectedTraits,
     state.size,
     traitDefinitions
