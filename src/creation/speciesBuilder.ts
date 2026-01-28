@@ -241,6 +241,7 @@ export function validateTraitSelection(
 ): ValidationResult {
   const errors: string[] = [];
   const warnings: string[] = [];
+  const selectedTraitSet = new Set(selectedTraitIds);
 
   // Optimization: Use Set for O(1) lookups
   const selectedTraitIdSet = new Set(selectedTraitIds);
